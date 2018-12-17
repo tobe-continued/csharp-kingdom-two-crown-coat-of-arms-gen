@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<catalog>
+  <charge id="0">
+    <nom>A SIPS</nom>
+    <image>\Charges\_0000_A-Sips.bmp</image>
+  </charge>
+  <charge id="1">
+    <nom>A KIWO</nom>
+    <image>\Charges\_0001_A-Kiwo.bmp</image>
+  </charge>
+  <charge id="2">
+    <nom>A JACK PATTILLO</nom>
+    <image>\Charges\_0002_A-Jack-Pattillo.bmp</image>
+  </charge>
+  <charge id="3">
+    <nom>A GRONKH</nom>
+    <image>\Charges\_0003_A-Gronkh.bmp</image>
+  </charge>
+  <charge id="4">
+    <nom>AN EYE</nom>
+    <image>\Charges\_0004_An-Eye.bmp</image>
+  </charge>
+  <charge id="5">
+    <nom>A CRUMPS</nom>
+    <image>\Charges\_0005_A-Crumps.bmp</image>
+  </charge>
+  <charge id="6">
+    <nom>A WOLF'S HEAD</nom>
+    <image>\Charges\_0006_A-Wolf's-Head.bmp</image>
+  </charge>
+  <charge id="7">
+    <nom>A STAG</nom>
+    <image>\Charges\_0007_A-Stag.bmp</image>
+  </charge>
+  <charge id="8">
+    <nom>A SQUIRREL</nom>
+    <image>\Charges\_0008_A-Squirrel.bmp</image>
+  </charge>
+  <charge id="9">
+    <nom>A SNAKE</nom>
+    <image>\Charges\_0009_A-Snake.bmp</image>
+  </charge>
+  <charge id="10">
+    <nom>AN OWL</nom>
+    <image>\Charges\_0010_An-Owl.bmp</image>
+  </charge>
+  <charge id="11">
+    <nom>A LIZARD</nom>
+    <image>\Charges\_0011_A-Lizard.bmp</image>
+  </charge>
+  <charge id="12">
+    <nom>A HYDRA</nom>
+    <image>\Charges\_0012_A-Hydra.bmp</image>
+  </charge>
+  <charge id="13">
+    <nom>A FISH</nom>
+    <image>\Charges\_0013_A-Fish.bmp</image>
+  </charge>
+  <charge id="14">
+    <nom>AN EAGLE</nom>
+    <image>\Charges\_0014_An-Eagle.bmp</image>
+  </charge>
+  <charge id="15">
+    <nom>A DRAGON</nom>
+    <image>\Charges\_0015_A-Dragon.bmp</image>
+  </charge>
+  <charge id="16">
+    <nom>A BEAR</nom>
+    <image>\Charges\_0016_A-Bear.bmp</image>
+  </charge>
+  <charge id="17">
+    <nom>AN ARMADILLO</nom>
+    <image>\Charges\_0017_An-Armadillo.bmp</image>
+  </charge>
+  <color id="0">
+    <nom>BISQUE</nom>
+    <image>\Colors\__0000_BISQUE.png</image>
+  </color>
+  <color id="1">
+    <nom>THISTLE</nom>
+    <image>\Colors\__0001_THISTLE.png</image>
+  </color>
+  <color id="2">
+    <nom>BLACK</nom>
+    <image>\Colors\__0002_BLACK.png</image>
+  </color>
+  <color id="3">
+    <nom>SABLE</nom>
+    <image>\Colors\__0003_SABLE.png</image>
+  </color>
+  <color id="4">
+    <nom>GREY</nom>
+    <image>\Colors\__0004_GREY.png</image>
+  </color>
+  <color id="5">
+    <nom>SILVER</nom>
+    <image>\Colors\__0005_SILVER.png</image>
+  </color>
+  <color id="6">
+    <nom>ARGENT</nom>
+    <image>\Colors\__0006_ARGENT.png</image>
+  </color>
+  <color id="7">
+    <nom>SNOW</nom>
+    <image>\Colors\__0007_SNOW.png</image>
+  </color>
+  <color id="8">
+    <nom>WHITE</nom>
+    <image>\Colors\__0008_WHITE.png</image>
+  </color>
+  <color id="9">
+    <nom>IVORY</nom>
+    <image>\Colors\__0009_IVORY.png</image>
+  </color>
+  <color id="10">
+    <nom>OLIVE</nom>
+    <image>\Colors\__0010_OLIVE.png</image>
+  </color>
+  <color id="11">
+    <nom>BROWN</nom>
+    <image>\Colors\__0011_BROWN.png</image>
+  </color>
+  <color id="12">
+    <nom>SIENNA</nom>
+    <image>\Colors\__0012_SIENNA.png</image>
+  </color>
+  <color id="13">
+    <nom>CHOCOLATE</nom>
+    <image>\Colors\__0013_CHOCOLATE.png</image>
+  </color>
+  <color id="14">
+    <nom>PERU</nom>
+    <image>\Colors\__0014_PERU.png</image>
+  </color>
+  <color id="15">
+    <nom>KHAKI</nom>
+    <image>\Colors\__0015_KHAKI.png</image>
+  </color>
+  <color id="16">
+    <nom>LINEN</nom>
+    <image>\Colors\__0016_LINEN.png</image>
+  </color>
+  <color id="17">
+    <nom>TAN</nom>
+    <image>\Colors\__0017_TAN.png</image>
+  </color>
+  <color id="18">
+    <nom>WHEAT</nom>
+    <image>\Colors\__0018_WHEAT.png</image>
+  </color>
+  <color id="19">
+    <nom>BEIGE</nom>
+    <image>\Colors\__0019_BEIGE.png</image>
+  </color>
+  <color id="20">
+    <nom>FUCHSIA</nom>
+    <image>\Colors\__0020_FUCHSIA.png</image>
+  </color>
+  <color id="21">
+    <nom>PLUM</nom>
+    <image>\Colors\__0021_PLUM.png</image>
+  </color>
+  <color id="22">
+    <nom>LAVENDER</nom>
+    <image>\Colors\__0022_LAVENDER.png</image>
+  </color>
+  <color id="23">
+    <nom>VIOLET</nom>
+    <image>\Colors\__0023_VIOLET.png</image>
+  </color>
+  <color id="24">
+    <nom>PINK</nom>
+    <image>\Colors\__0024_PINK.png</image>
+  </color>
+  <color id="25">
+    <nom>INDIGO</nom>
+    <image>\Colors\__0025_INDIGO.png</image>
+  </color>
+  <color id="26">
+    <nom>PURPLE</nom>
+    <image>\Colors\__0026_PURPLE.png</image>
+  </color>
+  <color id="27">
+    <nom>PURPURE</nom>
+    <image>\Colors\__0027_PURPURE.png</image>
+  </color>
+  <color id="28">
+    <nom>NAVY</nom>
+    <image>\Colors\__0028_NAVY.png</image>
+  </color>
+  <color id="29">
+    <nom>TURQUOISE</nom>
+    <image>\Colors\__0029_TURQUOISE.png</image>
+  </color>
+  <color id="30">
+    <nom>ROYALBLUE</nom>
+    <image>\Colors\__0030_ROYALBLUE.png</image>
+  </color>
+  <color id="31">
+    <nom>AZURE</nom>
+    <image>\Colors\__0031_AZURE.png</image>
+  </color>
+  <color id="32">
+    <nom>TEAL</nom>
+    <image>\Colors\__0032_TEAL.png</image>
+  </color>
+  <color id="33">
+    <nom>AQUA</nom>
+    <image>\Colors\__0033_AQUA.png</image>
+  </color>
+  <color id="34">
+    <nom>GREEN</nom>
+    <image>\Colors\__0034_GREEN.png</image>
+  </color>
+  <color id="35">
+    <nom>VERT</nom>
+    <image>\Colors\__0035_VERT.png</image>
+  </color>
+  <color id="36">
+    <nom>LIME</nom>
+    <image>\Colors\__0036_LIME.png</image>
+  </color>
+  <color id="37">
+    <nom>CHARTREUSE</nom>
+    <image>\Colors\__0037_CHARTREUSE.png</image>
+  </color>
+  <color id="38">
+    <nom>YELLOW</nom>
+    <image>\Colors\__0038_YELLOW.png</image>
+  </color>
+  <color id="39">
+    <nom>SALMON</nom>
+    <image>\Colors\__0039_SALMON.png</image>
+  </color>
+  <color id="40">
+    <nom>CORAL</nom>
+    <image>\Colors\__0040_CORAL.png</image>
+  </color>
+  <color id="41">
+    <nom>TOMATO</nom>
+    <image>\Colors\__0041_TOMATO.png</image>
+  </color>
+  <color id="42">
+    <nom>GOLD</nom>
+    <image>\Colors\__0042_GOLD.png</image>
+  </color>
+  <color id="43">
+    <nom>OR</nom>
+    <image>\Colors\__0043_OR.png</image>
+  </color>
+  <color id="44">
+    <nom>ORANGE</nom>
+    <image>\Colors\__0044_ORANGE.png</image>
+  </color>
+  <color id="45">
+    <nom>MAROON</nom>
+    <image>\Colors\__0045_MAROON.png</image>
+  </color>
+  <color id="46">
+    <nom>CRIMSON</nom>
+    <image>\Colors\__0046_CRIMSON.png</image>
+  </color>
+  <color id="47">
+    <nom>GULES</nom>
+    <image>\Colors\__0047_GULES.png</image>
+  </color>
+  <color id="48">
+    <nom>RED</nom>
+    <image>\Colors\__0048_RED.png</image>
+  </color>
+</catalog>
