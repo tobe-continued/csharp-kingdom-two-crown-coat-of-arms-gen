@@ -125,6 +125,7 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(643, 248);
             this.panel3.TabIndex = 3;
+            this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
             // 
             // panel2
             // 
@@ -153,7 +154,6 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(756, 595);
             this.panel2.TabIndex = 2;
-            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
             // button3
             // 

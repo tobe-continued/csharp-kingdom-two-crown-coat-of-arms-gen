@@ -23,8 +23,8 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>1</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -48,6 +48,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>ED75CB177EF0DEF4629F4C59006AA6764FAAC486</ManifestCertificateThumbprint>
@@ -69,6 +72,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
@@ -92,6 +96,11 @@
     <Compile Include="LockBitmap.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="RandomGenerator .cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -107,11 +116,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -119,13 +123,18 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\double_pixel-7.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Colors\colors.xml">
+    <Content Include="XML\charges.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="XML\colors.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Colors\__0000_BISQUE.png">
@@ -275,28 +284,58 @@
     <Content Include="Colors\__0048_RED.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Kingdom1\Charges\charges.xml">
+    <Content Include="Kingdom1\Charges\_0000_Calque-2.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Kingdom1\Charges\_0000_Calque-2.bmp" />
-    <Content Include="Kingdom1\Charges\_0001_A-Kiwo.bmp" />
-    <Content Include="Kingdom1\Charges\_0002_A-Jack-Pattillo.bmp" />
-    <Content Include="Kingdom1\Charges\_0003_A-Gronkh.bmp" />
-    <Content Include="Kingdom1\Charges\_0004_An-Eye.bmp" />
-    <Content Include="Kingdom1\Charges\_0005_A-Crumps.bmp" />
-    <Content Include="Kingdom1\Charges\_0006_A-Wolf%27s-Head.bmp" />
-    <Content Include="Kingdom1\Charges\_0007_A-Stag.bmp" />
-    <Content Include="Kingdom1\Charges\_0008_A-Squirrel.bmp" />
-    <Content Include="Kingdom1\Charges\_0009_A-Snake.bmp" />
-    <Content Include="Kingdom1\Charges\_0010_An-Owl.bmp" />
-    <Content Include="Kingdom1\Charges\_0011_A-Lizard.bmp" />
-    <Content Include="Kingdom1\Charges\_0012_A-Hydra.bmp" />
-    <Content Include="Kingdom1\Charges\_0013_A-Fish.bmp" />
-    <Content Include="Kingdom1\Charges\_0014_An-Eagle.bmp" />
-    <Content Include="Kingdom1\Charges\_0015_A-Dragon.bmp" />
-    <Content Include="Kingdom1\Charges\_0016_A-Bear.bmp" />
-    <Content Include="Kingdom1\Charges\_0017_An-Armadillo.bmp" />
-    <Content Include="Kingdom1\Ordinaries\ordinaries.xml">
+    <Content Include="Kingdom1\Charges\_0001_A-Kiwo.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Kingdom1\Charges\_0002_A-Jack-Pattillo.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Kingdom1\Charges\_0003_A-Gronkh.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Kingdom1\Charges\_0004_An-Eye.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Kingdom1\Charges\_0005_A-Crumps.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Kingdom1\Charges\_0006_A-Wolf%27s-Head.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Kingdom1\Charges\_0007_A-Stag.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Kingdom1\Charges\_0008_A-Squirrel.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Kingdom1\Charges\_0009_A-Snake.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Kingdom1\Charges\_0010_An-Owl.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Kingdom1\Charges\_0011_A-Lizard.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Kingdom1\Charges\_0012_A-Hydra.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Kingdom1\Charges\_0013_A-Fish.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Kingdom1\Charges\_0014_An-Eagle.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Kingdom1\Charges\_0015_A-Dragon.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Kingdom1\Charges\_0016_A-Bear.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Kingdom1\Charges\_0017_An-Armadillo.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Kingdom1\Ordinaries\__0000_Five Annulets.bmp">
@@ -341,10 +380,58 @@
     <Content Include="Kingdom1\Ordinaries\__0013_A Fess.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Kingdom2\Charges\charges.xml">
+    <Content Include="Kingdom2\Charges\_0000_A-Sips.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Kingdom2\Ordinaries\ordinaries.xml">
+    <Content Include="Kingdom2\Charges\_0001_A-Kiwo.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Kingdom2\Charges\_0002_A-Jack-Pattillo.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Kingdom2\Charges\_0003_A-Gronkh.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Kingdom2\Charges\_0004_An-Eye.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Kingdom2\Charges\_0005_A-Crumps.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Kingdom2\Charges\_0006_A-Wolf%27s-Head.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Kingdom2\Charges\_0007_A-Stag.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Kingdom2\Charges\_0008_A-Squirrel.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Kingdom2\Charges\_0009_A-Snake.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Kingdom2\Charges\_0010_An-Owl.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Kingdom2\Charges\_0011_A-Lizard.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Kingdom2\Charges\_0012_A-Hydra.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Kingdom2\Charges\_0013_A-Fish.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Kingdom2\Charges\_0014_An-Eagle.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Kingdom2\Charges\_0015_A-Dragon.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Kingdom2\Charges\_0016_A-Bear.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Kingdom2\Charges\_0017_An-Armadillo.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Kingdom2\Ordinaries\__0000_Five Annulets.bmp">
@@ -387,6 +474,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Kingdom2\Ordinaries\__0013_A Fess.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="XML\ordinaries.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\encours.png" />
@@ -450,6 +540,38 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="XML\charges.xml">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="XML\colors.xml">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="XML\ordinaries.xml">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

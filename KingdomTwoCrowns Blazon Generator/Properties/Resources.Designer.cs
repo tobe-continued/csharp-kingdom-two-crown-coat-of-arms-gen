@@ -73,16 +73,6 @@ namespace KingdomTwoCrowns_Blazon_Generator.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap _0009_A_Snake {
-            get {
-                object obj = ResourceManager.GetObject("_0009_A-Snake", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
-        /// </summary>
         public static System.Drawing.Bitmap Btn_Droite {
             get {
                 object obj = ResourceManager.GetObject("Btn_Droite", resourceCulture);
