@@ -2,7 +2,9 @@
 using log4net.Config;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Configuration;
+using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -10,6 +12,7 @@ using System.Drawing.Text;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
+using System.Resources;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using System.Xml;
@@ -30,6 +33,38 @@ namespace KingdomTwoCrowns_Blazon_Generator
         {
             try
             {
+                string[] files = Directory.GetFiles(Application.StartupPath + "\\XML" + "\\lang\\");
+                DataTable dataTable = new DataTable("Langage");
+                dataTable.Columns.Add("Id");
+                dataTable.Columns.Add("Name");
+                int num = 0;
+                List<Color> colors = new List<Color>();
+                XmlDocument doc = new XmlDocument();
+                foreach (string file in files)
+                {
+                    doc.Load(Application.StartupPath + "\\XML\\lang\\" + Path.GetFileName(file));
+                    XmlNodeList nodes = doc.DocumentElement.SelectNodes("/catalog/translation");
+
+                    foreach (XmlNode node in nodes)
+                    {
+                        if (int.Parse(node.Attributes["id"].Value) == 999)
+                        {
+                            dataTable.Rows.Add(int.Parse(node.SelectSingleNode("ID").InnerText), node.SelectSingleNode("txt").InnerText);
+                            num++;
+                        }
+                    }
+                }
+                comboBoxLang.DataSource = dataTable;
+                comboBoxLang.DisplayMember = "Name";
+                comboBoxLang.ValueMember = "Id";
+
+                comboBoxLang.SelectedIndex = int.Parse(Properties.Settings.Default.codelang);
+
+
+
+                pictureBox1.BackgroundImage = Image.FromFile(Application.StartupPath + "\\lang\\" + Properties.Settings.Default.lang + ".png");
+                
+                Translator(Properties.Settings.Default.lang);
                 //Create your private font collection object.
                 PrivateFontCollection pfc = new PrivateFontCollection();
                 //Select your font from the resources.
@@ -43,8 +78,60 @@ namespace KingdomTwoCrowns_Blazon_Generator
                 Marshal.Copy(fontdata, 0, data, fontLength);
                 // pass the font to the font collection
                 pfc.AddMemoryFont(data, fontLength);
+                int COULEUR = int.Parse(Properties.Settings.Default.couleur);
+                int CHARGE = int.Parse(Properties.Settings.Default.charge);
+                int CHARGECLRS = int.Parse(Properties.Settings.Default.chargeclrs);
+                int ORDINARIES = int.Parse(Properties.Settings.Default.ordinarie);
+                int ORDINARIESCLRS = int.Parse(Properties.Settings.Default.ordinarieclrs);
+                if (Properties.Settings.Default.langcode == "0")
+                {
+                    LetsRandom();
+                    Properties.Settings.Default.langcode = "1";
+                }
+                else
+                {
+                    try
+                    {
+                        int color = int.Parse(Properties.Settings.Default.couleur);
+                        int ordinarie = int.Parse(Properties.Settings.Default.ordinarie);
+                        int ordinarieclrs = int.Parse(Properties.Settings.Default.ordinarieclrs);
+                        int charge = int.Parse(Properties.Settings.Default.charge);
+                        int chargeclrs = int.Parse(Properties.Settings.Default.chargeclrs);
+                        if (Properties.Settings.Default.jeu == "Kingdom2")
+                        {
+                            panel3.BackgroundImage = Properties.Resources.Logo1;
+                            label3.Visible = false;
+                            label5.Visible = false;
+                            Left_Charg_btn.Visible = false;
+                            Right_Charg_btn.Visible = false;
+                            Left_Charg_color_btn.Visible = false;
+                            Right_Charg_color_btn.Visible = false;
+                            panel5.BackgroundImage = ChangeColor(GetCharge(charge), GetChargeColor(chargeclrs));
+                            panel7.BackgroundImage = Image.FromFile(GetColor(color));
+                            panel8.BackgroundImage = ChangeColor(GetOrdinarie(ordinarie), GetOrdinarieColor(ordinarieclrs));
+                            textBox1.Text = (GetColorText(color) + " " + GetOrdinarieText(ordinarie) + " " + GetOrdinarieColorText(ordinarieclrs) + " " + "A SIPS" + " " + "BISQUE");
+                        }
+                        else
+                        {
+                            panel3.BackgroundImage = Properties.Resources.Logo2;
+                            label3.Visible = true;
+                            label5.Visible = true;
+                            Left_Charg_btn.Visible = true;
+                            Right_Charg_btn.Visible = true;
+                            Left_Charg_color_btn.Visible = true;
+                            Right_Charg_color_btn.Visible = true;
+                            panel7.BackgroundImage = Image.FromFile(GetColor(color));
+                            panel8.BackgroundImage = ChangeColor(GetOrdinarie(ordinarie), GetOrdinarieColor(ordinarieclrs));
+                            panel5.BackgroundImage = ChangeColor(GetCharge(charge), GetChargeColor(chargeclrs));
+                            textBox1.Text = (GetColorText(color) + " " + GetOrdinarieText(ordinarie) + " " + GetOrdinarieColorText(ordinarieclrs) + " " + GetChargeText(charge) + " " + GetChargeColorText(chargeclrs));
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        _log.Fatal("ERREUR : " + ex);
+                    }
+                }
 
-                LetsRandom();
                 Exit_btn.Font = new Font(pfc.Families[0], Exit_btn.Font.Size);
                 label1.Font = new Font(pfc.Families[0], label1.Font.Size);
                 label2.Font = new Font(pfc.Families[0], label2.Font.Size);
@@ -67,11 +154,17 @@ namespace KingdomTwoCrowns_Blazon_Generator
                 if (System.Windows.Forms.Application.MessageLoop)
                 {
                     // WinForms app
+                    Properties.Settings.Default.FormSize = this.Size;
+                    Properties.Settings.Default.Location = this.Location;
+                    Properties.Settings.Default.Save();
                     System.Windows.Forms.Application.Exit();
                 }
                 else
                 {
                     // Console app
+                    Properties.Settings.Default.FormSize = this.Size;
+                    Properties.Settings.Default.Location = this.Location;
+                    Properties.Settings.Default.Save();
                     System.Environment.Exit(1);
                 }
             }
@@ -85,13 +178,13 @@ namespace KingdomTwoCrowns_Blazon_Generator
         {
             try
             {
-                int color = int.Parse(ConfigurationManager.AppSettings["couleur"]);
-                int charge = int.Parse(ConfigurationManager.AppSettings["charge"]);
-                int chargeclrs = int.Parse(ConfigurationManager.AppSettings["chargeclrs"]);
-                int ordinarie = int.Parse(ConfigurationManager.AppSettings["ordinarie"]);
-                int ordinarieclrs = int.Parse(ConfigurationManager.AppSettings["ordinarieclrs"]);
+                int color = int.Parse(Properties.Settings.Default.couleur);
+                int charge = int.Parse(Properties.Settings.Default.charge);
+                int chargeclrs = int.Parse(Properties.Settings.Default.chargeclrs);
+                int ordinarie = int.Parse(Properties.Settings.Default.ordinarie);
+                int ordinarieclrs = int.Parse(Properties.Settings.Default.ordinarieclrs);
                 color--;
-                ConfigurationManager.AppSettings["couleur"] = color.ToString();
+                Properties.Settings.Default.couleur = color.ToString();
                 panel7.BackgroundImage = Image.FromFile(GetColor(color));
                 textBox1.Text = (GetColorText(color) + " " + GetOrdinarieText(ordinarie) + " " + GetOrdinarieColorText(ordinarieclrs) + " " + GetChargeText(charge) + " " + GetChargeColorText(chargeclrs));
             }
@@ -105,13 +198,13 @@ namespace KingdomTwoCrowns_Blazon_Generator
         {
             try
             {
-                int color = int.Parse(ConfigurationManager.AppSettings["couleur"]);
-                int charge = int.Parse(ConfigurationManager.AppSettings["charge"]);
-                int chargeclrs = int.Parse(ConfigurationManager.AppSettings["chargeclrs"]);
-                int ordinarie = int.Parse(ConfigurationManager.AppSettings["ordinarie"]);
-                int ordinarieclrs = int.Parse(ConfigurationManager.AppSettings["ordinarieclrs"]);
+                int color = int.Parse(Properties.Settings.Default.couleur);
+                int charge = int.Parse(Properties.Settings.Default.charge);
+                int chargeclrs = int.Parse(Properties.Settings.Default.chargeclrs);
+                int ordinarie = int.Parse(Properties.Settings.Default.ordinarie);
+                int ordinarieclrs = int.Parse(Properties.Settings.Default.ordinarieclrs);
                 color++;
-                ConfigurationManager.AppSettings["couleur"] = color.ToString();
+                Properties.Settings.Default.couleur = color.ToString();
                 panel7.BackgroundImage = Image.FromFile(GetColor(color));
                 textBox1.Text = (GetColorText(color) + " " + GetOrdinarieText(ordinarie) + " " + GetOrdinarieColorText(ordinarieclrs) + " " + GetChargeText(charge) + " " + GetChargeColorText(chargeclrs));
             }
@@ -125,13 +218,13 @@ namespace KingdomTwoCrowns_Blazon_Generator
         {
             try
             {
-                int charge = int.Parse(ConfigurationManager.AppSettings["charge"]);
-                int chargeclrs = int.Parse(ConfigurationManager.AppSettings["chargeclrs"]);
-                int ordinarie = int.Parse(ConfigurationManager.AppSettings["ordinarie"]);
-                int ordinarieclrs = int.Parse(ConfigurationManager.AppSettings["ordinarieclrs"]);
-                int color = int.Parse(ConfigurationManager.AppSettings["couleur"]);
+                int charge = int.Parse(Properties.Settings.Default.charge);
+                int chargeclrs = int.Parse(Properties.Settings.Default.chargeclrs);
+                int ordinarie = int.Parse(Properties.Settings.Default.ordinarie);
+                int ordinarieclrs = int.Parse(Properties.Settings.Default.ordinarieclrs);
+                int color = int.Parse(Properties.Settings.Default.couleur);
                 ordinarie--;
-                ConfigurationManager.AppSettings["ordinarie"] = ordinarie.ToString();
+                Properties.Settings.Default.ordinarie = ordinarie.ToString();
                 panel8.BackgroundImage = new Bitmap(ChangeColor(GetOrdinarie(ordinarie), GetOrdinarieColor(ordinarieclrs)));
                 textBox1.Text = (GetColorText(color) + " " + GetOrdinarieText(ordinarie) + " " + GetOrdinarieColorText(ordinarieclrs) + " " + GetChargeText(charge) + " " + GetChargeColorText(chargeclrs));
             }
@@ -145,13 +238,13 @@ namespace KingdomTwoCrowns_Blazon_Generator
         {
             try
             {
-                int charge = int.Parse(ConfigurationManager.AppSettings["charge"]);
-                int chargeclrs = int.Parse(ConfigurationManager.AppSettings["chargeclrs"]);
-                int ordinarie = int.Parse(ConfigurationManager.AppSettings["ordinarie"]);
-                int ordinarieclrs = int.Parse(ConfigurationManager.AppSettings["ordinarieclrs"]);
-                int color = int.Parse(ConfigurationManager.AppSettings["couleur"]);
+                int charge = int.Parse(Properties.Settings.Default.charge);
+                int chargeclrs = int.Parse(Properties.Settings.Default.chargeclrs);
+                int ordinarie = int.Parse(Properties.Settings.Default.ordinarie);
+                int ordinarieclrs = int.Parse(Properties.Settings.Default.ordinarieclrs);
+                int color = int.Parse(Properties.Settings.Default.couleur);
                 ordinarie++;
-                ConfigurationManager.AppSettings["ordinarie"] = ordinarie.ToString();
+                Properties.Settings.Default.ordinarie = ordinarie.ToString();
                 panel8.BackgroundImage = new Bitmap(ChangeColor(GetOrdinarie(ordinarie), GetOrdinarieColor(ordinarieclrs)));
                 textBox1.Text = (GetColorText(color) + " " + GetOrdinarieText(ordinarie) + " " + GetOrdinarieColorText(ordinarieclrs) + " " + GetChargeText(charge) + " " + GetChargeColorText(chargeclrs));
             }
@@ -165,13 +258,13 @@ namespace KingdomTwoCrowns_Blazon_Generator
         {
             try
             {
-                int charge = int.Parse(ConfigurationManager.AppSettings["charge"]);
-                int chargeclrs = int.Parse(ConfigurationManager.AppSettings["chargeclrs"]);
-                int ordinarie = int.Parse(ConfigurationManager.AppSettings["ordinarie"]);
-                int ordinarieclrs = int.Parse(ConfigurationManager.AppSettings["ordinarieclrs"]);
-                int color = int.Parse(ConfigurationManager.AppSettings["couleur"]);
+                int charge = int.Parse(Properties.Settings.Default.charge);
+                int chargeclrs = int.Parse(Properties.Settings.Default.chargeclrs);
+                int ordinarie = int.Parse(Properties.Settings.Default.ordinarie);
+                int ordinarieclrs = int.Parse(Properties.Settings.Default.ordinarieclrs);
+                int color = int.Parse(Properties.Settings.Default.couleur);
                 ordinarieclrs--;
-                ConfigurationManager.AppSettings["ordinarieclrs"] = ordinarieclrs.ToString();
+                Properties.Settings.Default.ordinarieclrs = ordinarieclrs.ToString();
                 panel8.BackgroundImage = new Bitmap(ChangeColor(GetOrdinarie(ordinarie), GetOrdinarieColor(ordinarieclrs)));
                 textBox1.Text = (GetColorText(color) + " " + GetOrdinarieText(ordinarie) + " " + GetOrdinarieColorText(ordinarieclrs) + " " + GetChargeText(charge) + " " + GetChargeColorText(chargeclrs));
             }
@@ -185,13 +278,13 @@ namespace KingdomTwoCrowns_Blazon_Generator
         {
             try
             {
-                int charge = int.Parse(ConfigurationManager.AppSettings["charge"]);
-                int chargeclrs = int.Parse(ConfigurationManager.AppSettings["chargeclrs"]);
-                int ordinarie = int.Parse(ConfigurationManager.AppSettings["ordinarie"]);
-                int ordinarieclrs = int.Parse(ConfigurationManager.AppSettings["ordinarieclrs"]);
-                int color = int.Parse(ConfigurationManager.AppSettings["couleur"]);
+                int charge = int.Parse(Properties.Settings.Default.charge);
+                int chargeclrs = int.Parse(Properties.Settings.Default.chargeclrs);
+                int ordinarie = int.Parse(Properties.Settings.Default.ordinarie);
+                int ordinarieclrs = int.Parse(Properties.Settings.Default.ordinarieclrs);
+                int color = int.Parse(Properties.Settings.Default.couleur);
                 ordinarieclrs++;
-                ConfigurationManager.AppSettings["ordinarieclrs"] = ordinarieclrs.ToString();
+                Properties.Settings.Default.ordinarieclrs = ordinarieclrs.ToString();
                 panel8.BackgroundImage = new Bitmap(ChangeColor(GetOrdinarie(ordinarie), GetOrdinarieColor(ordinarieclrs)));
                 textBox1.Text = (GetColorText(color) + " " + GetOrdinarieText(ordinarie) + " " + GetOrdinarieColorText(ordinarieclrs) + " " + GetChargeText(charge) + " " + GetChargeColorText(chargeclrs));
             }
@@ -205,13 +298,13 @@ namespace KingdomTwoCrowns_Blazon_Generator
         {
             try
             {
-                int charge = int.Parse(ConfigurationManager.AppSettings["charge"]);
-                int chargeclrs = int.Parse(ConfigurationManager.AppSettings["chargeclrs"]);
-                int ordinarie = int.Parse(ConfigurationManager.AppSettings["ordinarie"]);
-                int ordinarieclrs = int.Parse(ConfigurationManager.AppSettings["ordinarieclrs"]);
-                int color = int.Parse(ConfigurationManager.AppSettings["couleur"]);
+                int charge = int.Parse(Properties.Settings.Default.charge);
+                int chargeclrs = int.Parse(Properties.Settings.Default.chargeclrs);
+                int ordinarie = int.Parse(Properties.Settings.Default.ordinarie);
+                int ordinarieclrs = int.Parse(Properties.Settings.Default.ordinarieclrs);
+                int color = int.Parse(Properties.Settings.Default.couleur);
                 charge--;
-                ConfigurationManager.AppSettings["charge"] = charge.ToString();
+                Properties.Settings.Default.charge = charge.ToString();
                 panel5.BackgroundImage = new Bitmap(ChangeColor(GetCharge(charge), GetChargeColor(chargeclrs)));
                 textBox1.Text = (GetColorText(color) + " " + GetOrdinarieText(ordinarie) + " " + GetOrdinarieColorText(ordinarieclrs) + " " + GetChargeText(charge) + " " + GetChargeColorText(chargeclrs));
             }
@@ -225,13 +318,13 @@ namespace KingdomTwoCrowns_Blazon_Generator
         {
             try
             {
-                int charge = int.Parse(ConfigurationManager.AppSettings["charge"]);
-                int chargeclrs = int.Parse(ConfigurationManager.AppSettings["chargeclrs"]);
-                int ordinarie = int.Parse(ConfigurationManager.AppSettings["ordinarie"]);
-                int ordinarieclrs = int.Parse(ConfigurationManager.AppSettings["ordinarieclrs"]);
-                int color = int.Parse(ConfigurationManager.AppSettings["couleur"]);
+                int charge = int.Parse(Properties.Settings.Default.charge);
+                int chargeclrs = int.Parse(Properties.Settings.Default.chargeclrs);
+                int ordinarie = int.Parse(Properties.Settings.Default.ordinarie);
+                int ordinarieclrs = int.Parse(Properties.Settings.Default.ordinarieclrs);
+                int color = int.Parse(Properties.Settings.Default.couleur);
                 charge++;
-                ConfigurationManager.AppSettings["charge"] = charge.ToString();
+                Properties.Settings.Default.charge = charge.ToString();
                 panel5.BackgroundImage = new Bitmap(ChangeColor(GetCharge(charge), GetChargeColor(chargeclrs)));
                 textBox1.Text = (GetColorText(color) + " " + GetOrdinarieText(ordinarie) + " " + GetOrdinarieColorText(ordinarieclrs) + " " + GetChargeText(charge) + " " + GetChargeColorText(chargeclrs));
             }
@@ -245,13 +338,13 @@ namespace KingdomTwoCrowns_Blazon_Generator
         {
             try
             {
-                int charge = int.Parse(ConfigurationManager.AppSettings["charge"]);
-                int chargeclrs = int.Parse(ConfigurationManager.AppSettings["chargeclrs"]);
-                int ordinarie = int.Parse(ConfigurationManager.AppSettings["ordinarie"]);
-                int ordinarieclrs = int.Parse(ConfigurationManager.AppSettings["ordinarieclrs"]);
-                int color = int.Parse(ConfigurationManager.AppSettings["couleur"]);
+                int charge = int.Parse(Properties.Settings.Default.charge);
+                int chargeclrs = int.Parse(Properties.Settings.Default.chargeclrs);
+                int ordinarie = int.Parse(Properties.Settings.Default.ordinarie);
+                int ordinarieclrs = int.Parse(Properties.Settings.Default.ordinarieclrs);
+                int color = int.Parse(Properties.Settings.Default.couleur);
                 chargeclrs--;
-                ConfigurationManager.AppSettings["chargeclrs"] = chargeclrs.ToString();
+                Properties.Settings.Default.chargeclrs = chargeclrs.ToString();
                 panel5.BackgroundImage = new Bitmap(ChangeColor(GetCharge(charge), GetChargeColor(chargeclrs)));
                 textBox1.Text = (GetColorText(color) + " " + GetOrdinarieText(ordinarie) + " " + GetOrdinarieColorText(ordinarieclrs) + " " + GetChargeText(charge) + " " + GetChargeColorText(chargeclrs));
             }
@@ -265,13 +358,13 @@ namespace KingdomTwoCrowns_Blazon_Generator
         {
             try
             {
-                int charge = int.Parse(ConfigurationManager.AppSettings["charge"]);
-                int chargeclrs = int.Parse(ConfigurationManager.AppSettings["chargeclrs"]);
-                int ordinarie = int.Parse(ConfigurationManager.AppSettings["ordinarie"]);
-                int ordinarieclrs = int.Parse(ConfigurationManager.AppSettings["ordinarieclrs"]);
-                int color = int.Parse(ConfigurationManager.AppSettings["couleur"]);
+                int charge = int.Parse(Properties.Settings.Default.charge);
+                int chargeclrs = int.Parse(Properties.Settings.Default.chargeclrs);
+                int ordinarie = int.Parse(Properties.Settings.Default.ordinarie);
+                int ordinarieclrs = int.Parse(Properties.Settings.Default.ordinarieclrs);
+                int color = int.Parse(Properties.Settings.Default.couleur);
                 chargeclrs++;
-                ConfigurationManager.AppSettings["chargeclrs"] = chargeclrs.ToString();
+                Properties.Settings.Default.chargeclrs = chargeclrs.ToString();
                 panel5.BackgroundImage = new Bitmap(ChangeColor(GetCharge(charge), GetChargeColor(chargeclrs)));
                 textBox1.Text = (GetColorText(color) + " " + GetOrdinarieText(ordinarie) + " " + GetOrdinarieColorText(ordinarieclrs) + " " + GetChargeText(charge) + " " + GetChargeColorText(chargeclrs));
             }
@@ -285,18 +378,16 @@ namespace KingdomTwoCrowns_Blazon_Generator
         {
             try
             {
-                string game = ConfigurationManager.AppSettings["jeu"];
+                string game = Properties.Settings.Default.jeu;
                 if (game == "Kingdom1")
                 {
-                    ConfigurationManager.AppSettings["jeu"] = "Kingdom2";
+                    Properties.Settings.Default.jeu = "Kingdom2";
                     panel3.BackgroundImage = Properties.Resources.Logo1;
-                    LetsRandom();
                 }
                 else if (game == "Kingdom2")
                 {
-                    ConfigurationManager.AppSettings["jeu"] = "Kingdom1";
+                    Properties.Settings.Default.jeu = "Kingdom1";
                     panel3.BackgroundImage = Properties.Resources.Logo2;
-                    LetsRandom();
                 }
                 else
                 {
@@ -313,18 +404,16 @@ namespace KingdomTwoCrowns_Blazon_Generator
         {
             try
             {
-                string game = ConfigurationManager.AppSettings["jeu"];
+                string game = Properties.Settings.Default.jeu;
                 if (game == "Kingdom1")
                 {
-                    ConfigurationManager.AppSettings["jeu"] = "Kingdom2";
+                    Properties.Settings.Default.jeu = "Kingdom2";
                     panel3.BackgroundImage = Properties.Resources.Logo1;
-                    LetsRandom();
                 }
                 else if (game == "Kingdom2")
                 {
-                    ConfigurationManager.AppSettings["jeu"] = "Kingdom1";
+                    Properties.Settings.Default.jeu = "Kingdom1";
                     panel3.BackgroundImage = Properties.Resources.Logo2;
-                    LetsRandom();
                 }
                 else
                 {
@@ -357,16 +446,17 @@ namespace KingdomTwoCrowns_Blazon_Generator
         {
             try
             {
-                ConfigurationManager.AppSettings["couleur"] = GetRandomNumber(0, 48).ToString();
-                ConfigurationManager.AppSettings["ordinarie"] = GetRandomNumber(0, 13).ToString();
-                ConfigurationManager.AppSettings["ordinarieclrs"] = GetRandomNumber(0, 48).ToString();
-                int color = int.Parse(ConfigurationManager.AppSettings["couleur"]);
-                int ordinarie = int.Parse(ConfigurationManager.AppSettings["ordinarie"]);
-                int ordinarieclrs = int.Parse(ConfigurationManager.AppSettings["ordinarieclrs"]);
-                int charge = int.Parse(ConfigurationManager.AppSettings["charge"]);
-                int chargeclrs = int.Parse(ConfigurationManager.AppSettings["chargeclrs"]);
-                if (ConfigurationManager.AppSettings["jeu"] == "Kingdom2")
+                Properties.Settings.Default.couleur = GetRandomNumber(0, 48).ToString();
+                Properties.Settings.Default.ordinarie = GetRandomNumber(0, 13).ToString();
+                Properties.Settings.Default.ordinarieclrs = GetRandomNumber(0, 48).ToString();
+                int color = int.Parse(Properties.Settings.Default.couleur);
+                int ordinarie = int.Parse(Properties.Settings.Default.ordinarie);
+                int ordinarieclrs = int.Parse(Properties.Settings.Default.ordinarieclrs);
+                int charge = int.Parse(Properties.Settings.Default.charge);
+                int chargeclrs = int.Parse(Properties.Settings.Default.chargeclrs);
+                if (Properties.Settings.Default.jeu == "Kingdom2")
                 {
+                    panel3.BackgroundImage = Properties.Resources.Logo1;
                     label3.Visible = false;
                     label5.Visible = false;
                     Left_Charg_btn.Visible = false;
@@ -380,14 +470,15 @@ namespace KingdomTwoCrowns_Blazon_Generator
                 }
                 else
                 {
+                    panel3.BackgroundImage = Properties.Resources.Logo2;
                     label3.Visible = true;
                     label5.Visible = true;
                     Left_Charg_btn.Visible = true;
                     Right_Charg_btn.Visible = true;
                     Left_Charg_color_btn.Visible = true;
                     Right_Charg_color_btn.Visible = true;
-                    ConfigurationManager.AppSettings["charge"] = GetRandomNumber(0, 17).ToString();
-                    ConfigurationManager.AppSettings["chargeclrs"] = GetRandomNumber(0, 48).ToString();
+                    Properties.Settings.Default.charge = GetRandomNumber(0, 17).ToString();
+                    Properties.Settings.Default.chargeclrs = GetRandomNumber(0, 48).ToString();
                     panel7.BackgroundImage = Image.FromFile(GetColor(color));
                     panel8.BackgroundImage = ChangeColor(GetOrdinarie(ordinarie), GetOrdinarieColor(ordinarieclrs));
                     panel5.BackgroundImage = ChangeColor(GetCharge(charge), GetChargeColor(chargeclrs));
@@ -425,7 +516,7 @@ namespace KingdomTwoCrowns_Blazon_Generator
                         int id = int.Parse(node.Attributes["id"].Value);
                         if (id == retour)
                         {
-                            ConfigurationManager.AppSettings["couleur"] = retour.ToString();
+                            Properties.Settings.Default.couleur = retour.ToString();
                             return images;
                         }
                     }
@@ -441,7 +532,7 @@ namespace KingdomTwoCrowns_Blazon_Generator
                         int id = int.Parse(node.Attributes["id"].Value);
                         if (id == retour)
                         {
-                            ConfigurationManager.AppSettings["couleur"] = retour.ToString();
+                            Properties.Settings.Default.couleur = retour.ToString();
                             return images;
                         }
                     }
@@ -489,7 +580,7 @@ namespace KingdomTwoCrowns_Blazon_Generator
                         int id = int.Parse(node.Attributes["id"].Value);
                         if (id == retour)
                         {
-                            ConfigurationManager.AppSettings["couleur"] = retour.ToString();
+                            Properties.Settings.Default.couleur = retour.ToString();
                             return noms;
                         }
                     }
@@ -505,7 +596,7 @@ namespace KingdomTwoCrowns_Blazon_Generator
                         int id = int.Parse(node.Attributes["id"].Value);
                         if (id == retour)
                         {
-                            ConfigurationManager.AppSettings["couleur"] = retour.ToString();
+                            Properties.Settings.Default.couleur = retour.ToString();
                             return noms;
                         }
                     }
@@ -537,7 +628,7 @@ namespace KingdomTwoCrowns_Blazon_Generator
         {
             try
             {
-                string game = ConfigurationManager.AppSettings["jeu"];
+                string game = Properties.Settings.Default.jeu;
                 XmlDocument doc = new XmlDocument();
                 doc.Load(Application.StartupPath + @"\XML\ordinaries.xml");
                 XmlNodeList nodes = doc.DocumentElement.SelectNodes("/catalog/ordinaries");
@@ -554,7 +645,7 @@ namespace KingdomTwoCrowns_Blazon_Generator
                         int id = int.Parse(node.Attributes["id"].Value);
                         if (id == retour)
                         {
-                            ConfigurationManager.AppSettings["ordinarie"] = retour.ToString();
+                            Properties.Settings.Default.ordinarie = retour.ToString();
                             return images;
                         }
                     }
@@ -570,7 +661,7 @@ namespace KingdomTwoCrowns_Blazon_Generator
                         int id = int.Parse(node.Attributes["id"].Value);
                         if (id == retour)
                         {
-                            ConfigurationManager.AppSettings["ordinarie"] = retour.ToString();
+                            Properties.Settings.Default.ordinarie = retour.ToString();
                             return images;
                         }
                     }
@@ -602,7 +693,7 @@ namespace KingdomTwoCrowns_Blazon_Generator
         {
             try
             {
-                string game = ConfigurationManager.AppSettings["jeu"];
+                string game = Properties.Settings.Default.jeu;
                 XmlDocument doc = new XmlDocument();
                 doc.Load(Application.StartupPath + @"\XML\ordinaries.xml");
                 XmlNodeList nodes = doc.DocumentElement.SelectNodes("/catalog/ordinaries");
@@ -618,7 +709,7 @@ namespace KingdomTwoCrowns_Blazon_Generator
                         int id = int.Parse(node.Attributes["id"].Value);
                         if (id == retour)
                         {
-                            ConfigurationManager.AppSettings["ordinarie"] = retour.ToString();
+                            Properties.Settings.Default.ordinarie = retour.ToString();
                             return noms;
                         }
                     }
@@ -634,7 +725,7 @@ namespace KingdomTwoCrowns_Blazon_Generator
                         int id = int.Parse(node.Attributes["id"].Value);
                         if (id == retour)
                         {
-                            ConfigurationManager.AppSettings["ordinarie"] = retour.ToString();
+                            Properties.Settings.Default.ordinarie = retour.ToString();
                             return noms;
                         }
                     }
@@ -666,7 +757,7 @@ namespace KingdomTwoCrowns_Blazon_Generator
         {
             try
             {
-                string game = ConfigurationManager.AppSettings["jeu"];
+                string game = Properties.Settings.Default.jeu;
                 XmlDocument doc = new XmlDocument();
                 doc.Load(Application.StartupPath + @"\XML\ordinaries.xml");
                 XmlNodeList nodes = doc.DocumentElement.SelectNodes("/catalog/color");
@@ -683,7 +774,7 @@ namespace KingdomTwoCrowns_Blazon_Generator
                         int id = int.Parse(node.Attributes["id"].Value);
                         if (id == retour)
                         {
-                            ConfigurationManager.AppSettings["cordinarieclrs"] = retour.ToString();
+                            Properties.Settings.Default.ordinarieclrs = retour.ToString();
                             return image;
                         }
                     }
@@ -699,7 +790,7 @@ namespace KingdomTwoCrowns_Blazon_Generator
                         int id = int.Parse(node.Attributes["id"].Value);
                         if (id == retour)
                         {
-                            ConfigurationManager.AppSettings["ordinarieclrs"] = retour.ToString();
+                            Properties.Settings.Default.ordinarieclrs = retour.ToString();
                             return image;
                         }
                     }
@@ -731,7 +822,7 @@ namespace KingdomTwoCrowns_Blazon_Generator
         {
             try
             {
-                string game = ConfigurationManager.AppSettings["jeu"];
+                string game = Properties.Settings.Default.jeu;
                 XmlDocument doc = new XmlDocument();
                 doc.Load(Application.StartupPath + @"\XML\ordinaries.xml");
                 XmlNodeList nodes = doc.DocumentElement.SelectNodes("/catalog/color");
@@ -748,7 +839,7 @@ namespace KingdomTwoCrowns_Blazon_Generator
                         int id = int.Parse(node.Attributes["id"].Value);
                         if (id == retour)
                         {
-                            ConfigurationManager.AppSettings["ordinarieclrs"] = retour.ToString();
+                            Properties.Settings.Default.ordinarieclrs = retour.ToString();
                             return noms;
                         }
                     }
@@ -764,7 +855,7 @@ namespace KingdomTwoCrowns_Blazon_Generator
                         int id = int.Parse(node.Attributes["id"].Value);
                         if (id == retour)
                         {
-                            ConfigurationManager.AppSettings["ordinarieclrs"] = retour.ToString();
+                            Properties.Settings.Default.ordinarieclrs = retour.ToString();
                             return noms;
                         }
                     }
@@ -796,7 +887,7 @@ namespace KingdomTwoCrowns_Blazon_Generator
         {
             try
             {
-                string game = ConfigurationManager.AppSettings["jeu"];
+                string game = Properties.Settings.Default.jeu;
                 XmlDocument doc = new XmlDocument();
                 doc.Load(Application.StartupPath + @"\XML\charges.xml");
                 XmlNodeList nodes = doc.DocumentElement.SelectNodes("/catalog/charge");
@@ -813,7 +904,7 @@ namespace KingdomTwoCrowns_Blazon_Generator
                         int id = int.Parse(node.Attributes["id"].Value);
                         if (id == retour)
                         {
-                            ConfigurationManager.AppSettings["charge"] = retour.ToString();
+                            Properties.Settings.Default.charge = retour.ToString();
                             return images;
                         }
                     }
@@ -829,7 +920,7 @@ namespace KingdomTwoCrowns_Blazon_Generator
                         int id = int.Parse(node.Attributes["id"].Value);
                         if (id == retour)
                         {
-                            ConfigurationManager.AppSettings["charge"] = retour.ToString();
+                            Properties.Settings.Default.charge = retour.ToString();
                             return images;
                         }
                     }
@@ -861,7 +952,7 @@ namespace KingdomTwoCrowns_Blazon_Generator
         {
             try
             {
-                string game = ConfigurationManager.AppSettings["jeu"];
+                string game = Properties.Settings.Default.jeu;
                 XmlDocument doc = new XmlDocument();
                 doc.Load(Application.StartupPath + @"\XML\charges.xml");
                 XmlNodeList nodes = doc.DocumentElement.SelectNodes("/catalog/charge");
@@ -877,7 +968,7 @@ namespace KingdomTwoCrowns_Blazon_Generator
                         int id = int.Parse(node.Attributes["id"].Value);
                         if (id == retour)
                         {
-                            ConfigurationManager.AppSettings["charge"] = retour.ToString();
+                            Properties.Settings.Default.charge = retour.ToString();
                             return noms;
                         }
                     }
@@ -893,7 +984,7 @@ namespace KingdomTwoCrowns_Blazon_Generator
                         int id = int.Parse(node.Attributes["id"].Value);
                         if (id == retour)
                         {
-                            ConfigurationManager.AppSettings["charge"] = retour.ToString();
+                            Properties.Settings.Default.charge = retour.ToString();
                             return noms;
                         }
                     }
@@ -925,7 +1016,7 @@ namespace KingdomTwoCrowns_Blazon_Generator
         {
             try
             {
-                string game = ConfigurationManager.AppSettings["jeu"];
+                string game = Properties.Settings.Default.jeu;
                 XmlDocument doc = new XmlDocument();
                 doc.Load(Application.StartupPath + @"\XML\charges.xml");
                 XmlNodeList nodes = doc.DocumentElement.SelectNodes("/catalog/color");
@@ -942,7 +1033,7 @@ namespace KingdomTwoCrowns_Blazon_Generator
                         int id = int.Parse(node.Attributes["id"].Value);
                         if (id == retour)
                         {
-                            ConfigurationManager.AppSettings["chargeclrs"] = retour.ToString();
+                            Properties.Settings.Default.chargeclrs = retour.ToString();
                             return image;
                         }
                     }
@@ -958,7 +1049,7 @@ namespace KingdomTwoCrowns_Blazon_Generator
                         int id = int.Parse(node.Attributes["id"].Value);
                         if (id == retour)
                         {
-                            ConfigurationManager.AppSettings["chargeclrs"] = retour.ToString();
+                            Properties.Settings.Default.chargeclrs = retour.ToString();
                             return image;
                         }
                     }
@@ -990,7 +1081,7 @@ namespace KingdomTwoCrowns_Blazon_Generator
         {
             try
             {
-                string game = ConfigurationManager.AppSettings["jeu"];
+                string game = Properties.Settings.Default.jeu;
                 XmlDocument doc = new XmlDocument();
                 doc.Load(Application.StartupPath + @"\XML\charges.xml");
                 XmlNodeList nodes = doc.DocumentElement.SelectNodes("/catalog/color");
@@ -1007,7 +1098,7 @@ namespace KingdomTwoCrowns_Blazon_Generator
                         int id = int.Parse(node.Attributes["id"].Value);
                         if (id == retour)
                         {
-                            ConfigurationManager.AppSettings["chargeclrs"] = retour.ToString();
+                            Properties.Settings.Default.chargeclrs = retour.ToString();
                             return noms;
                         }
                     }
@@ -1023,7 +1114,7 @@ namespace KingdomTwoCrowns_Blazon_Generator
                         int id = int.Parse(node.Attributes["id"].Value);
                         if (id == retour)
                         {
-                            ConfigurationManager.AppSettings["chargeclrs"] = retour.ToString();
+                            Properties.Settings.Default.chargeclrs = retour.ToString();
                             return noms;
                         }
                     }
@@ -1055,7 +1146,7 @@ namespace KingdomTwoCrowns_Blazon_Generator
         {
             try
             {
-                string game = ConfigurationManager.AppSettings["jeu"];
+                string game = Properties.Settings.Default.jeu;
                 // Load the images.
                 Bitmap mask = (Bitmap)Image.FromFile(Application.StartupPath + "\\" + game + file);
                 Bitmap input = (Bitmap)Image.FromFile(Application.StartupPath + "\\" + colorcode);
@@ -1135,10 +1226,6 @@ namespace KingdomTwoCrowns_Blazon_Generator
             }
         }
 
-        private void panel3_Paint(object sender, PaintEventArgs e)
-        {
-        }
-
         public string GetResourceTextFile(string filename)
         {
             string result = string.Empty;
@@ -1150,6 +1237,97 @@ namespace KingdomTwoCrowns_Blazon_Generator
                 }
             }
             return result;
+        }
+
+        private void Translator(string lang)
+        {
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(Application.StartupPath + "\\XML\\lang\\" + lang + ".xml");
+            XmlNodeList nodes = doc.DocumentElement.SelectNodes("/catalog/translation");
+
+            List<Color> colors = new List<Color>();
+
+
+            foreach (XmlNode node in nodes)
+            {
+                if (int.Parse(node.Attributes["id"].Value) == 0)
+                {
+                    label1.Text = node.SelectSingleNode("txt").InnerText;
+                }
+                else if (int.Parse(node.Attributes["id"].Value) == 1)
+                {
+                    label2.Text = node.SelectSingleNode("txt").InnerText;
+                }
+                else if (int.Parse(node.Attributes["id"].Value) == 2)
+                {
+                    label4.Text = node.SelectSingleNode("txt").InnerText;
+                }
+                else if (int.Parse(node.Attributes["id"].Value) == 3)
+                {
+                    label3.Text = node.SelectSingleNode("txt").InnerText;
+                }
+                else if (int.Parse(node.Attributes["id"].Value) == 4)
+                {
+                    label5.Text = node.SelectSingleNode("txt").InnerText;
+                }
+                else if (int.Parse(node.Attributes["id"].Value) == 5)
+                {
+                    button3.Text = node.SelectSingleNode("txt").InnerText;
+                }
+                else if (int.Parse(node.Attributes["id"].Value) == 6)
+                {
+                    Exit_btn.Text = node.SelectSingleNode("txt").InnerText;
+                }
+                else if (int.Parse(node.Attributes["id"].Value) == 7)
+                {
+                    tabPage1.Text = node.SelectSingleNode("txt").InnerText;
+                }
+                else if (int.Parse(node.Attributes["id"].Value) == 8)
+                {
+                    tabPage2.Text = node.SelectSingleNode("txt").InnerText;
+                }
+                else if (int.Parse(node.Attributes["id"].Value) == 9)
+                {
+                    label6.Text = node.SelectSingleNode("txt").InnerText;
+                }
+                else if (int.Parse(node.Attributes["id"].Value) == 1000)
+                {
+                    this.Text = node.SelectSingleNode("txt").InnerText;
+                }
+                else
+                {
+
+                }
+            }
+        }
+
+        private void comboBoxLang_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load(Application.StartupPath + "\\XML\\lang\\" + Properties.Settings.Default.lang + ".xml");
+            XmlNodeList nodes = doc.DocumentElement.SelectNodes("/catalog/translation");
+
+            List<Color> colors = new List<Color>();
+
+            foreach (XmlNode node in nodes)
+            {
+                if (int.Parse(node.Attributes["id"].Value) == 999)
+                {
+                    DataRow selectedDataRow = ((DataRowView)comboBoxLang.SelectedItem).Row;
+                    Properties.Settings.Default.lang = selectedDataRow["Name"].ToString();
+                    pictureBox1.BackgroundImage = Image.FromFile(Application.StartupPath + "\\lang\\" + selectedDataRow["Name"].ToString() + ".png");
+                    Translator(Properties.Settings.Default.lang);
+                    Properties.Settings.Default.Save();
+                }
+            }
+        }
+
+        private void Form_Closing(object sender, FormClosingEventArgs e)
+        {
+            Properties.Settings.Default.FormSize = this.Size;
+            Properties.Settings.Default.Location = this.Location;
+            Properties.Settings.Default.Save();
         }
     }
 

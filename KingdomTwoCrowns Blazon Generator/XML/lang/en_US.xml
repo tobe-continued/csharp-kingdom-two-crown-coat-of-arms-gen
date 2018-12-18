@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<catalog>
+  <translation id="1000">
+    <nom>Titre</nom>
+    <txt>Kingdom : Two Crowns - Blazon Generator</txt>
+  </translation>
+  <translation id="999">
+    <nom>Lang</nom>
+    <txt>en_US</txt>
+    <ID>0</ID>
+  </translation>
+  <translation id="0">
+    <nom>Tincture Text</nom>
+    <txt>Tincture</txt>
+  </translation>
+  <translation id="1">
+    <nom>Ordinary Text</nom>
+    <txt>Ordinary</txt>
+  </translation>
+  <translation id="2">
+    <nom>Ordinary Color Text</nom>
+    <txt>Ordinary Color</txt>
+  </translation>
+  <translation id="3">
+    <nom>Charge Text</nom>
+    <txt>Charge</txt>
+  </translation>
+  <translation id="4">
+    <nom>Charge Color Text</nom>
+    <txt>Charge Color</txt>
+  </translation>
+  <translation id="5">
+    <nom>Randomizer Button Text</nom>
+    <txt>Randomizer</txt>
+  </translation>
+  <translation id="6">
+    <nom>Exit Button Text</nom>
+    <txt>Exit</txt>
+  </translation>
+  <translation id="7">
+    <nom>Generator Tab Text</nom>
+    <txt>Generator</txt>
+  </translation>
+  <translation id="8">
+    <nom>Settings Tab Text</nom>
+    <txt>Settings</txt>
+  </translation>
+  <translation id="9">
+    <nom>Langage Text</nom>
+    <txt>Langage</txt>
+  </translation>
+</catalog>

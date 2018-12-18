@@ -55,11 +55,21 @@
             this.Left_Tinkt_btn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.Exit_btn = new System.Windows.Forms.Button();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.comboBoxLang = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.panel5.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel7.SuspendLayout();
             this.panel8.SuspendLayout();
             this.panel6.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel5
@@ -93,7 +103,7 @@
             this.button2.FlatAppearance.BorderSize = 0;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button2.Font = new System.Drawing.Font("OCR A Extended", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(749, 215);
+            this.button2.Location = new System.Drawing.Point(875, 198);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(35, 35);
             this.button2.TabIndex = 18;
@@ -109,7 +119,7 @@
             this.button1.FlatAppearance.BorderSize = 0;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button1.Font = new System.Drawing.Font("OCR A Extended", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(59, 215);
+            this.button1.Location = new System.Drawing.Point(263, 198);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(35, 35);
             this.button1.TabIndex = 4;
@@ -121,11 +131,10 @@
             this.panel3.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.panel3.BackgroundImage = global::KingdomTwoCrowns_Blazon_Generator.Properties.Resources.Logo2;
             this.panel3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.panel3.Location = new System.Drawing.Point(100, 2);
+            this.panel3.Location = new System.Drawing.Point(304, 6);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(643, 248);
+            this.panel3.Size = new System.Drawing.Size(565, 227);
             this.panel3.TabIndex = 3;
-            this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
             // 
             // panel2
             // 
@@ -150,9 +159,9 @@
             this.panel2.Controls.Add(this.Right_Tinkt_btn);
             this.panel2.Controls.Add(this.Left_Tinkt_btn);
             this.panel2.Controls.Add(this.label1);
-            this.panel2.Location = new System.Drawing.Point(39, 256);
+            this.panel2.Location = new System.Drawing.Point(84, 239);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(756, 595);
+            this.panel2.Size = new System.Drawing.Size(1013, 585);
             this.panel2.TabIndex = 2;
             // 
             // button3
@@ -163,7 +172,7 @@
             this.button3.FlatAppearance.BorderSize = 0;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button3.Font = new System.Drawing.Font("OCR A Extended", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(412, 457);
+            this.button3.Location = new System.Drawing.Point(752, 500);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(195, 50);
             this.button3.TabIndex = 18;
@@ -176,7 +185,7 @@
             this.panel7.BackColor = System.Drawing.Color.Transparent;
             this.panel7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.panel7.Controls.Add(this.panel8);
-            this.panel7.Location = new System.Drawing.Point(276, 21);
+            this.panel7.Location = new System.Drawing.Point(521, 30);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(457, 435);
             this.panel7.TabIndex = 2;
@@ -196,7 +205,7 @@
             this.panel6.BackgroundImage = global::KingdomTwoCrowns_Blazon_Generator.Properties.Resources.Z_texte;
             this.panel6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.panel6.Controls.Add(this.textBox1);
-            this.panel6.Location = new System.Drawing.Point(41, 513);
+            this.panel6.Location = new System.Drawing.Point(41, 496);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(679, 62);
             this.panel6.TabIndex = 17;
@@ -419,9 +428,8 @@
             this.label1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label1.Location = new System.Drawing.Point(32, 30);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(221, 55);
+            this.label1.Size = new System.Drawing.Size(0, 55);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Tinctures";
             // 
             // Exit_btn
             // 
@@ -430,7 +438,7 @@
             this.Exit_btn.FlatAppearance.BorderSize = 0;
             this.Exit_btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.Exit_btn.Font = new System.Drawing.Font("OCR A Extended", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Exit_btn.Location = new System.Drawing.Point(329, 857);
+            this.Exit_btn.Location = new System.Drawing.Point(498, 830);
             this.Exit_btn.Name = "Exit_btn";
             this.Exit_btn.Size = new System.Drawing.Size(167, 38);
             this.Exit_btn.TabIndex = 0;
@@ -438,24 +446,98 @@
             this.Exit_btn.UseVisualStyleBackColor = true;
             this.Exit_btn.Click += new System.EventHandler(this.Exit_btn_Click);
             // 
+            // tabControl1
+            // 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Location = new System.Drawing.Point(-1, 2);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(1182, 900);
+            this.tabControl1.TabIndex = 19;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
+            this.tabPage1.Controls.Add(this.panel3);
+            this.tabPage1.Controls.Add(this.Exit_btn);
+            this.tabPage1.Controls.Add(this.panel2);
+            this.tabPage1.Controls.Add(this.button2);
+            this.tabPage1.Controls.Add(this.button1);
+            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(1174, 871);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Generator";
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
+            this.tabPage2.Controls.Add(this.pictureBox1);
+            this.tabPage2.Controls.Add(this.comboBoxLang);
+            this.tabPage2.Controls.Add(this.label6);
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(1174, 871);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "tabPage2";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackgroundImage = global::KingdomTwoCrowns_Blazon_Generator.Properties.Resources.Btn_Droite;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox1.Location = new System.Drawing.Point(240, 2);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(24, 24);
+            this.pictureBox1.TabIndex = 2;
+            this.pictureBox1.TabStop = false;
+            // 
+            // comboBoxLang
+            // 
+            this.comboBoxLang.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.comboBoxLang.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboBoxLang.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxLang.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.comboBoxLang.FormattingEnabled = true;
+            this.comboBoxLang.Location = new System.Drawing.Point(72, 4);
+            this.comboBoxLang.Name = "comboBoxLang";
+            this.comboBoxLang.Size = new System.Drawing.Size(163, 21);
+            this.comboBoxLang.TabIndex = 1;
+            this.comboBoxLang.SelectedValueChanged += new System.EventHandler(this.comboBoxLang_SelectedIndexChanged);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label6.Location = new System.Drawing.Point(10, 7);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(55, 13);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Language";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(836, 901);
-            this.Controls.Add(this.Exit_btn);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.panel3);
-            this.Controls.Add(this.panel2);
+            this.ClientSize = new System.Drawing.Size(1181, 901);
+            this.Controls.Add(this.tabControl1);
+            this.DataBindings.Add(new System.Windows.Forms.Binding("Location", global::KingdomTwoCrowns_Blazon_Generator.Properties.Settings.Default, "Location", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.ImeMode = System.Windows.Forms.ImeMode.On;
+            this.Location = global::KingdomTwoCrowns_Blazon_Generator.Properties.Settings.Default.Location;
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_Closing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel5.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
@@ -464,6 +546,11 @@
             this.panel8.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -497,6 +584,12 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox comboBoxLang;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

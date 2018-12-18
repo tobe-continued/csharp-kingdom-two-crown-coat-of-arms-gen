@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<catalog>
+  <translation id="1000">
+    <nom>Titre</nom>
+    <txt>Kingdom : Two Crowns - Générateur de Blasons</txt>
+  </translation>
+  <translation id="999">
+    <nom>Lang</nom>
+    <txt>fr_FR</txt>
+    <ID>1</ID>
+  </translation>
+  <translation id="0">
+    <nom>Tinctures Text</nom>
+    <txt>Émail</txt>
+  </translation>
+  <translation id="1">
+    <nom>Ordinary Text</nom>
+    <txt>Pièce</txt>
+  </translation>
+  <translation id="2">
+    <nom>Ordinary Color Text</nom>
+    <txt>Couleur de pièce</txt>
+  </translation>
+  <translation id="3">
+    <nom>Charges Text</nom>
+    <txt>Meuble</txt>
+  </translation>
+  <translation id="4">
+    <nom>Charges Color Text</nom>
+    <txt>Couleur du Meuble</txt>
+  </translation>
+  <translation id="5">
+    <nom>Randomizer Button Text</nom>
+    <txt>Aléatoire</txt>
+  </translation>
+  <translation id="6">
+    <nom>Exit Button Text</nom>
+    <txt>Quitter</txt>
+  </translation>
+  <translation id="7">
+    <nom>Generator Tab Text</nom>
+    <txt>Générateur</txt>
+  </translation>
+  <translation id="8">
+    <nom>Settings Tab Text</nom>
+    <txt>Options</txt>
+  </translation>
+</catalog>
