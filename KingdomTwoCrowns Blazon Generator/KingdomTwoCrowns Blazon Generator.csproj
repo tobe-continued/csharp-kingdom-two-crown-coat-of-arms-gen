@@ -111,6 +111,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="KingdomTwoCrowns Blazon Generator_TemporaryKey.pfx" />
+    <None Include="log4net.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -284,7 +287,7 @@
     <Content Include="Colors\__0048_RED.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Kingdom1\Charges\_0000_Calque-2.bmp">
+    <Content Include="Kingdom1\Charges\_0000_A-Sips.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Kingdom1\Charges\_0001_A-Kiwo.bmp">

@@ -1109,7 +1109,7 @@ namespace KingdomTwoCrowns_Blazon_Generator
             }
             catch (Exception ex)
             {
-                _log.Fatal("ERREUR : " + ex);
+                _log.Fatal("ERREUR : " + ex + "with files : " + file + "," + colorcode);
                 return null;
             }
         }
